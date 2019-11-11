@@ -1,6 +1,6 @@
 
 exports.seed = function(knex) {
-  return knex('table_name').insert([
+  return knex('project1').insert([
     {name: 'Maryam', password: 'maryam'},
     {name: 'mimi', password: 'mimi'},
     {name: 'nathan', password: 'nathan'}
