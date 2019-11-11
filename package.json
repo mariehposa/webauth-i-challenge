@@ -1,0 +1,14 @@
+{
+  "name": "webauth-i-challenge",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mariehposa/webauth-i-challenge.git",
+  "author": "Adedeji Mariam <maadedeji76@student.lautech.edu.ng>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "helmet": "^3.21.2",
+    "knex": "^0.20.1",
+    "sqlite3": "^4.1.0"
+  }
+}
