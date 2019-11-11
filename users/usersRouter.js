@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 const db = require('./usersModel')
 const router = express.Router()
 
-router.get('/', (req, res) => {
+router.get('/', bodyValidator, (req, res) => {
     db.getUsers()
     .then(users => {
         res.status(200).json(users)
@@ -27,14 +27,34 @@ router.post('/register', (req, res) => {
         res.status(201).json(user)
     })
     .catch(error => {
-        res.status(500).json(error);
+        res.status(500).json(error.message);
     });
 })
 
-// router.post('/login', (req, res) => {
-//     const { name, password} = req.body;
+router.post('/login', bodyValidator, (req, res) => {
+    res.status(200).json({ message: `Welcome ${req.valUser.name} !`})
+})
 
-//     db.get
-// })
+function bodyValidator (req, res, next) {
+    let { name, password } = req.body;
+
+    if (!name || !password) {
+        name = req.headers.name
+        password = req.headers.password
+    }
+
+    db.getUserBy({ name })
+    .then(user => {
+        if (user && bcrypt.compareSync(password, user.password)) {
+            req.valUser = user
+            next()
+        } else {
+            res.status(401).json({ message: 'Invalid Credentials!'})
+        }
+    })
+    .catch(err => {
+        res.status(500).json(err.message)
+    })
+}
 
 module.exports = router;

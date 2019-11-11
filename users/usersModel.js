@@ -5,6 +5,12 @@ function getUsers() {
     .select('id', 'name', 'password')
 }
 
+function getUserBy (user) {
+    return db('project1')
+    .where(user)
+    .first()
+}
+
 function getUserId(id) {
     return db('project1 as p')
     .where('p.id', id)
@@ -19,6 +25,7 @@ function addUsers(user) {
 
 module.exports = {
     getUsers,
+    getUserBy,
     getUserId,
     addUsers
 }
